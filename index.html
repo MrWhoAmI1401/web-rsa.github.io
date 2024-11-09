@@ -1,64 +1,60 @@
+<!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kriptografi RSA</title>
     <link rel="stylesheet" href="Halaman1.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  </head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 <body>
     <nav class="navbar bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-        <img src="Logo Unmul Universitas Mulawarman.png" alt="Logo" width="60" height="48" class="d-inline-block align-text-centre">
-        Kelompok 3
-        </a>
-    </div>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="Logo Unmul Universitas Mulawarman.png" alt="Logo" width="60" height="48" class="d-inline-block align-text-centre">
+                Kelompok 3
+            </a>
+        </div>
     </nav>
+    
     <h1>Kriptografi RSA</h1>
 
-
-    <form action="decrypt_message.php" method="POST" style="background-color: #f5f5f5; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 1000px; margin: 20px auto;">
-        <section style="text-align: center; padding: 20px;">
+    <form action="decrypt_message.php" method="POST">
+        <section>
             <label for="p">p: </label>
-            <input type="text" id="p" name="p" value="" size="15">
+            <input type="text" id="p" name="p" value="">
             <label for="q">q: </label>
-            <input type="text" id="q" name="q" value="" size="15">
-            <div style="height: 10px;"></div>
+            <input type="text" id="q" name="q" value="">
             <button type="button" onclick="computeNr()">Set p, q</button>
         </section>
-        <section style="text-align: center; padding: 20px;">
-            <br>
-            <label for="N">N = p*q: </label>
-            <input type="text" id="N" name="N" value="" size="15" readonly>
-            <label for="r">r = (p-1)*(q-1): </label>
-            <input type="text" id="r" name="r" value="" size="15" readonly>
-            <label for="e">Kunci e: </label>
-            <input type="text" id="e" name="e" value="" size="15">
-        </section>
-
-        <br>
 
         <section>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
-            <div style="display: flex; justify-content: center; gap: 20px;">
-                <div style="display: flex; flex-direction: column; align-items: flex-start;">
-                    <label for="plaintext" style="margin-bottom: 5px;">Plaintext: </label>
-                    <textarea id="plaintext" name="plaintext" value="" style="height: 150px; width: 350px;"></textarea>
+            <label for="N">N = p*q: </label>
+            <input type="text" id="N" name="N" value="" readonly>
+            <label for="r">r = (p-1)*(q-1): </label>
+            <input type="text" id="r" name="r" value="" readonly>
+            <label for="e">Kunci e: </label>
+            <input type="text" id="e" name="e" value="">
+        </section>
+
+        <section>
+            <div class="text-areas">
+                <div>
+                    <label for="plaintext">Plaintext: </label>
+                    <textarea id="plaintext" name="plaintext"></textarea>
                 </div>
-                <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <div>
                     <label for="ciphertext">Ciphertext: </label>
-                    <textarea id="ciphertext" name="ciphertext" value="" size="" style="height: 150px; width: 350px;" readonly></textarea>
+                    <textarea id="ciphertext" name="ciphertext" readonly></textarea>
                 </div>
             </div>
-            <button type="button" onclick="encryptMessage()" style="width: 100px;">Enkripsi</button>
-        </div>
+            <button type="button" onclick="encryptMessage()">Enkripsi</button>
         </section>
 
         <button type="button" onclick="window.location.href='decrypt_message.html'">Chippertext to Plaintext</button>
     </form>
 
     <script src="java.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
