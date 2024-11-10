@@ -1,9 +1,7 @@
-// Fungsi bantu untuk menghitung modulus
 function mod(m, n) {
     return m - n * Math.floor(m / n);
 }
 
-// Fungsi bantu untuk eksponensiasi modular
 function powerMod(x, p, N) {
     let result = 1;
     let base = x % N;
@@ -17,27 +15,14 @@ function powerMod(x, p, N) {
     return result;
 }
 
-// Konversi string ke array ASCII
 function stringToAsciiArray(str) {
     return str.split('').map(char => char.charCodeAt(0));
 }
 
-// Konversi array ASCII ke string
 function asciiArrayToString(asciiArray) {
     return asciiArray.map(code => String.fromCharCode(code)).join('');
 }
 
-// Fungsi untuk mengonversi angka menjadi hex
-function toHex(num) {
-    return num.toString(16);
-}
-
-// Fungsi untuk mengonversi array angka menjadi hex
-function toHexArray(array) {
-    return array.map(num => num.toString(16).padStart(2, '0')).join(" ");
-}
-
-// Hitung nilai N dan r
 function computeNr() {
     let p = parseInt(document.getElementById('p').value);
     let q = parseInt(document.getElementById('q').value);
@@ -51,7 +36,6 @@ function computeNr() {
     document.getElementById('r').value = (p - 1) * (q - 1);
 }
 
-// Cek apakah angka adalah bilangan prima
 function isPrime(num) {
     if (num < 2) return false;
     for (let i = 2; i <= Math.sqrt(num); i++) {
@@ -60,7 +44,6 @@ function isPrime(num) {
     return true;
 }
 
-// Verifikasi apakah 'e' adalah coprime dengan 'r'
 function validateE() {
     let e = parseInt(document.getElementById('e').value);
     let r = parseInt(document.getElementById('r').value);
@@ -72,7 +55,6 @@ function validateE() {
     return true;
 }
 
-// Menghitung GCD
 function gcd(a, b) {
     while (b !== 0) {
         [a, b] = [b, a % b];
@@ -80,7 +62,7 @@ function gcd(a, b) {
     return a;
 }
 
-// Enkripsi pesan plaintext
+
 function encryptMessage() {
     if (!validateE()) return;
 
@@ -96,28 +78,21 @@ function encryptMessage() {
     let asciiArray = stringToAsciiArray(plaintext);
     let encryptedArray = asciiArray.map(ascii => powerMod(ascii, e, N));
 
-    // Konversi ciphertext ke hex dan tampilkan di kolom ciphertext
-    let hexCiphertext = toHexArray(encryptedArray);
-    document.getElementById('ciphertext').value = hexCiphertext;
+    document.getElementById('ciphertext').value = encryptedArray.join(" ");
 }
 
-// Dekripsi ciphertext
+
 function checkCode() {
     let d = parseInt(document.getElementById('d').value);
-    let N = parseInt(document.getElementById('N').value); // Pastikan N sudah dihitung dan diambil dari input
-    let ciphertextHex = document.getElementById('ciphertext').value.split(" ");
-    
-    if (!d || !N || ciphertextHex.length === 0) {
+    let N = parseInt(document.getElementById('N').value);
+    let ciphertext = document.getElementById('ciphertext').value.split(" ").map(Number);
+
+    if (!d || !N || ciphertext.length === 0) {
         alert("Please enter valid values for d and ciphertext.");
         return;
     }
 
-    // Mengubah hex kembali ke angka (ciphertext)
-    let ciphertext = ciphertextHex.map(hex => parseInt(hex, 16));
-
-    // Mendekripsi setiap ciphertext
     let decryptedArray = ciphertext.map(c => powerMod(c, d, N));
 
-    // Menampilkan hasil dekripsi di kolom plaintext
     document.getElementById('plaintext').value = asciiArrayToString(decryptedArray);
 }
