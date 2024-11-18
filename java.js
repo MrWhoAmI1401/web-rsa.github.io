@@ -16,11 +16,11 @@ function powerMod(x, p, N) {
 }
 
 function stringToAsciiArray(str) {
-    return str.split('').map(char => char.charCodeAt(0));
+    return str.split('').map(char => char.charCodeAt(0) % 256); // Menggunakan ASCII hingga 255
 }
 
 function asciiArrayToString(asciiArray) {
-    return asciiArray.map(code => String.fromCharCode(code)).join('');
+    return asciiArray.map(code => String.fromCharCode(code % 256)).join('');
 }
 
 function computeNr() {
@@ -62,7 +62,6 @@ function gcd(a, b) {
     return a;
 }
 
-
 function encryptMessage() {
     if (!validateE()) return;
 
@@ -75,24 +74,25 @@ function encryptMessage() {
         return;
     }
 
-    let asciiArray = stringToAsciiArray(plaintext);
-    let encryptedArray = asciiArray.map(ascii => powerMod(ascii, e, N));
+    let asciiArray = stringToAsciiArray(plaintext); // Konversi plaintext ke ASCII 255
+    let encryptedArray = asciiArray.map(ascii => powerMod(ascii, e, N)); // Perhitungan enkripsi
+    let encryptedChars = encryptedArray.map(code => String.fromCharCode(code % 256)); // Konversi ke karakter ASCII
 
-    document.getElementById('ciphertext').value = encryptedArray.join(" ");
+    document.getElementById('ciphertext').value = encryptedChars.join(""); // Tampilkan hasil sebagai karakter
 }
-
 
 function checkCode() {
     let d = parseInt(document.getElementById('d').value);
     let N = parseInt(document.getElementById('N').value);
-    let ciphertext = document.getElementById('ciphertext').value.split(" ").map(Number);
+    let ciphertext = document.getElementById('ciphertext').value.split("").map(char => char.charCodeAt(0)); // Konversi ke ASCII 255
 
     if (!d || !N || ciphertext.length === 0) {
         alert("Please enter valid values for d and ciphertext.");
         return;
     }
 
-    let decryptedArray = ciphertext.map(c => powerMod(c, d, N));
+    let decryptedArray = ciphertext.map(c => powerMod(c, d, N)); // Proses dekripsi
+    let decryptedMessage = asciiArrayToString(decryptedArray); // Konversi ke plaintext
 
-    document.getElementById('plaintext').value = asciiArrayToString(decryptedArray);
+    document.getElementById('plaintext').value = decryptedMessage;
 }
